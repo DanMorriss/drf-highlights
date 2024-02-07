@@ -71,7 +71,8 @@ To create a requirements.txt file with all the dependencies
 ### Languages and Frameworks
 
 - Python
-- Django Rest Framework
+- Django Rest Framework  
+`pip install djangorestframework`
 
 ### Libraries & Tools
 
