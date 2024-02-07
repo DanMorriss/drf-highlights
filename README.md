@@ -18,7 +18,55 @@ Possible features to implement that are not in the Moments walkthrough:
 
 ## Database
 
+![Database schema](docs/database_schema.png)
+
+To create a new app for a new model  
+`python manage.py start app <appname>`  
+Then add it to the `INTALLED_APPS` list in settings.py
+
+To migrate the changes to the database  
+`python manage.py makemigrations`  
+`python manage.py migrate`
+
+To create a superuser  
+`python manage.py createsuperuser`
+
+### User
+The user model contains information about the user and is part of the Django allauth library
+- One-to-one relationship with the profile model's owner field
+- ForeignKey relationship with the follower model's owner & followed fields
+- ForeignKey relationship with the post model's owner & tagged_users fields
+- ForeignKey relationship with the tagged_users model's post_owner & tagged_user fields
+- ForeignKey relationship with the like model's owner field
+- ForeignKey relationship with the comment model's owner field
+
+### Profile
+The profile model contains the following information used in users profiles
+- id
+- owner (ForeignKey)
+    - One to one relationship with the user model's id field
+- created_on
+- updated_on
+- name
+- bio
+- image
+
+### Follower
+
+
+### Post
+
+### Tagged Users
+
+### Like
+
+### Comment
+
+
 ## Technologies Used
+
+To create a requirements.txt file with all the dependencies  
+`pip freeze > requirements.txt`
 
 ### Languages and Frameworks
 
@@ -68,7 +116,7 @@ os.environ['CLOUDINARY_URL'] = '<Cloudinary API Environment variable>'
 ```
 import os
 
-if os.environ.exists('env.py'):
+if os.path.exists('env.py'):
     import env
 
 CLOUDINARY_STORAGE = {
