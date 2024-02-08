@@ -17,7 +17,7 @@ Possible features to implement that are not in the Moments walkthrough:
 ## User Stories
 
 ## Database
-
+[Database edit](https://lucid.app/lucidchart/416f6b5f-1a8f-402b-9a48-252b729ca79d/edit?page=0_0&invitationId=inv_6dc8ebbb-1811-4e2d-98d4-dd97f1f2b8be#)
 ![Database schema](docs/database_schema.png)
 
 To create a new app for a new model  
