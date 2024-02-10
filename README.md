@@ -6,15 +6,47 @@
 
 Possible features to implement that are not in the Moments walkthrough:
 
-- Link to another user in a post
-- Add a category/tag (#) to a post
-- Add a location to a post
-- A calendar view at the top of users profiles with links to the posts
+- Link to another user in a highlight
+- Add a category/tag (#) to a highlight
+- Add a location to a highlight
+- A calendar view at the top of users profiles with links to the highlights
 - Notifications
 - Messages
 
+## About
+
+Highlights is a social media platform for people to share the best parts of their day based on the five minute journal. User are able to:
+- Create an account
+- Log in to their account
+- Create, edit and delete a highlight (daily journal entry) including:
+    - images 
+    - tagging other users
+    - category
+    - location
+- Follow other users so they can see their highlights as well as like and comment on them
+- Filter highlights by:
+    - users they follow
+    - tags
+    - category
+    - date
+    - location
 
 ## User Stories
+
+- As a user I can create an account so I can enjoy the site
+- As a user I can log in to my account
+- As a user I can create a highlight
+- As a user I can update one of my highlights
+- As a user I can delete one of my highlights
+- As a user I can see other users
+- As a user I can view other users profiles
+- As a user I can follow another user
+- As a user I can unfollow a user
+- As a user I can see a list of the top profiles
+- As a user I can like/unlike another users highlight
+- As a user I can comment on another users highlight
+- As a user I can update a comment I have made on another users highlight
+- As a user I can delete a comment I have made on another users highlight
 
 ## Database
 [Database edit](https://lucid.app/lucidchart/416f6b5f-1a8f-402b-9a48-252b729ca79d/edit?page=0_0&invitationId=inv_6dc8ebbb-1811-4e2d-98d4-dd97f1f2b8be#)
@@ -35,8 +67,8 @@ To create a superuser
 The user model contains information about the user and is part of the Django allauth library
 - One-to-one relationship with the profile model's owner field
 - ForeignKey relationship with the follower model's owner & followed fields
-- ForeignKey relationship with the post model's owner & tagged_users fields
-- ForeignKey relationship with the tagged_users model's post_owner & tagged_user fields
+- ForeignKey relationship with the highlight model's owner & tagged_users fields
+- ForeignKey relationship with the tagged_users model's highlight_owner & tagged_user fields
 - ForeignKey relationship with the like model's owner field
 - ForeignKey relationship with the comment model's owner field
 
@@ -54,7 +86,7 @@ The profile model contains the following information used in users profiles
 ### Follower
 
 
-### Post
+### highlight
 
 ### Tagged Users
 
