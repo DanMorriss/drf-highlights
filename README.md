@@ -31,7 +31,11 @@ Highlights is a social media platform for people to share the best parts of thei
     - date
     - location
 
-## User Stories
+## UX
+
+### 1. Strategy
+
+#### User Stories
 
 - As a user I can create an account so I can enjoy the site
 - As a user I can log in to my account
@@ -41,14 +45,18 @@ Highlights is a social media platform for people to share the best parts of thei
 - As a user I can see other users
 - As a user I can view other users profiles
 - As a user I can follow another user
-- As a user I can unfollow a user
+- As a user I can un-follow a user
 - As a user I can see a list of the top profiles
 - As a user I can like/unlike another users highlight
 - As a user I can comment on another users highlight
 - As a user I can update a comment I have made on another users highlight
 - As a user I can delete a comment I have made on another users highlight
 
-## Database
+### 2. Scope
+### 3. Structure
+### 4. Skeleton
+
+#### Database
 [Database edit](https://lucid.app/lucidchart/416f6b5f-1a8f-402b-9a48-252b729ca79d/edit?page=0_0&invitationId=inv_6dc8ebbb-1811-4e2d-98d4-dd97f1f2b8be#)
 ![Database schema](docs/database_schema.png)
 
@@ -63,7 +71,7 @@ To migrate the changes to the database
 To create a superuser  
 `python manage.py createsuperuser`
 
-### User
+##### User
 The user model contains information about the user and is part of the Django allauth library
 - One-to-one relationship with the profile model's owner field
 - ForeignKey relationship with the follower model's owner & followed fields
@@ -72,7 +80,7 @@ The user model contains information about the user and is part of the Django all
 - ForeignKey relationship with the like model's owner field
 - ForeignKey relationship with the comment model's owner field
 
-### Profile
+##### Profile
 The profile model contains the following information used in users profiles
 - id
 - owner (ForeignKey)
@@ -83,17 +91,30 @@ The profile model contains the following information used in users profiles
 - bio
 - image
 
-### Follower
+##### Follower
 
 
-### highlight
+##### highlight
 
-### Tagged Users
+##### Tagged Users
 
-### Like
+##### Like
 
-### Comment
+##### Comment
 
+#### Wireframes
+
+![Landing page wireframe](/docs/landing-page-wireframe.png)
+![signup wireframe](/docs/signup-wireframe.png)
+![login wireframe](/docs/login-wireframe.png)
+![feed wireframe](/docs/feed-wireframe.png)
+![create highlight wireframe]()
+![highlight wireframe](/docs/highlight-wireframe.png)
+![profile wireframe](/docs/profile-wireframe.png)
+
+### 5. Surface
+
+![Color Palette](/docs/color-palette.png)
 
 ## Technologies Used
 
