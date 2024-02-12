@@ -132,6 +132,15 @@ To create a requirements.txt file with all the dependencies
 - [Cloudinary](https://cloudinary.com/) - Image storage
 - [Pillow](https://pypi.org/project/pillow/) - Image processing
 
+A full list of the requirements and the versions used can be found in the requirements.txt file. To install them and run them on your own machine first setup a virtual environment with the command to create a venv...  
+`python3 -m venv venv`  
+Then this command to run the venv run the command  
+`source venv/bin/activate`  
+To stop running the environment simply type the command  
+`deactivate`  
+To install the requirements use the command, make sure your venv is activated  
+`pip install -r requirements.txt`  
+
 ## Project Setup
 
 1. Use the [Code Institute Template](https://github.com/Code-Institute-Org/gitpod-full-template) to create a new repository on GitHub.
