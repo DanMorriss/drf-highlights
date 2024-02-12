@@ -162,7 +162,7 @@ The profile model contains the following information used in users profiles
 ![signup wireframe](/docs/signup-wireframe.png)
 ![login wireframe](/docs/login-wireframe.png)
 ![feed wireframe](/docs/feed-wireframe.png)
-![create highlight wireframe]()
+![create highlight wireframe](/docs/add-a-highlight-woreframe.png)
 ![highlight wireframe](/docs/highlight-wireframe.png)
 ![profile wireframe](/docs/profile-wireframe.png)
 
@@ -244,7 +244,6 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 ```
 
 ## Deployment
-
 
 ## Validation
 
