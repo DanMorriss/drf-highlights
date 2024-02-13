@@ -7,11 +7,10 @@
 Possible features to implement that are not in the Moments walkthrough:
 
 - Link to another user in a highlight
-- Add a category/tag (#) to a highlight
+- Add a category to a highlight
 - Add a location to a highlight
 - A calendar view at the top of users profiles with links to the highlights
-- Notifications
-- Messages
+- Feedback form for users to send to admin
 
 ## About
 
@@ -150,7 +149,12 @@ The profile model contains the following information used in users profiles
 
 ##### highlight
 
-##### Tagged Users
+##### Location
+
+- id
+- name
+- latitude models.DecimalField(max_digits=9, decimal_places=6) 
+- longitude
 
 ##### Like
 
