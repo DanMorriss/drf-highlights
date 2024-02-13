@@ -31,6 +31,10 @@ class CommentSerializer(serializers.ModelSerializer):
     def get_updated_on(self, obj):
         return naturaltime(obj.updated_on)
 
+    def get_is_owner(self, obj):
+        request = self.context['request']
+        return request.user == obj.owner
+
 
 class CommentDetailSerializer(CommentSerializer):
     highlight = serializers.ReadOnlyField(source='highlight.id')
