@@ -1,11 +1,15 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics
 from .models import Profile
 from .serializers import ProfileSerializer
+from drf_highlights.permissions import IsOwnerOrReadOnly
 
 
-class ProfileList(APIView):
-    def get(self, request):
-        profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True)
-        return Response(serializer.data)
+class ProfileList(generics.ListAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class ProfileDetail(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly]
