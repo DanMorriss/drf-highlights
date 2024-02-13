@@ -115,7 +115,7 @@ General
 ![Database schema](docs/database_schema.png)
 
 To create a new app for a new model  
-`python manage.py start app <appname>`  
+`python manage.py startapp <appname>`  
 Then add it to the `INTALLED_APPS` list in settings.py
 
 To migrate the changes to the database  
