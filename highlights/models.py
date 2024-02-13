@@ -25,7 +25,9 @@ class Highlight(models.Model):
     category = models.CharField(
         max_length=250,
         choices=categories,
-        default='family-and-friends'
+        blank=True,
+        null=True,
+        default=None
     )
     image = models.ImageField(
         upload_to='images/',
@@ -34,7 +36,11 @@ class Highlight(models.Model):
     )
     # location = models.ForeignKey(Location, on_delete=models.CASCADE)
     tagged_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='tagged_user'
+        User,
+        on_delete=models.CASCADE, related_name='tagged_user',
+        blank=True,
+        null=True,
+        default=None
     )
 
     class Meta:
