@@ -35,7 +35,12 @@ class Highlight(models.Model):
         default='../default_image_rfyixk',
         blank=True
     )
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
     tagged_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE, related_name='tagged_user',

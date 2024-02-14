@@ -255,4 +255,4 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ## Bugs
 
-- I had a circular import between highlight and location. Removing the highlight import fixed the issue.
+- I had a circular import between highlight and location. Removing the highlight import fixed the issue. I also had to allow the field to be null as there are some highlights that do not have a location.
