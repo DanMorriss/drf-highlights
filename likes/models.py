@@ -10,6 +10,7 @@ class Like(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+        unique_together = ['owner', 'highlight']
 
     def __str__(self):
         return f'{self.owner} {self.highlight}'
