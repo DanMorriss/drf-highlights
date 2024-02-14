@@ -41,6 +41,6 @@ class HighlightSerializer(serializers.ModelSerializer):
             'description',
             'category',
             'image',
-            # 'location',
+            'location',
             'tagged_user'
         ]

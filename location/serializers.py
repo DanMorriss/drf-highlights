@@ -7,8 +7,10 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = [
             'id',
-            'highlight',
             'name',
             'latitude',
             'longitude'
         ]
+
+    def __str__(self):
+        return self.name
