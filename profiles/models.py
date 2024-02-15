@@ -13,6 +13,7 @@ class Profile(models.Model):
         upload_to='images/',
         default='../default_profile_l3qmwk'
     )
+    location = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']

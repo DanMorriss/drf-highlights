@@ -10,6 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     posts_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
+    location = serializers.ReadOnlyField(source='owner.profile.location')
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -39,4 +40,5 @@ class ProfileSerializer(serializers.ModelSerializer):
             'posts_count',
             'followers_count',
             'following_count',
+            'location',
         ]
