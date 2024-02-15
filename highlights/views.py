@@ -13,7 +13,16 @@ class HighlightList(generics.ListCreateAPIView):
     serializer_class = HighlightSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
+        'category',
+        'tagged_user__username',
+        'description',
+        # 'location',
     ]
     ordering_fields = [
         'comments_count',
