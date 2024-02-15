@@ -269,6 +269,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    ...
+]
 ```
 3. Add the dj-rest-auth urls paths to the main urls.py file as below:
 ```
@@ -276,6 +278,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    ...
+]
 ```
 4. Migrate the database with terminal command:  
 `python manage.py migrate`
@@ -358,6 +362,370 @@ REST_AUTH_SERIALIZERS = {
 `pip freeze > requirements.txt`
 
 17. Add, commit and push changes.
+
+### Prepare API for deployment to Heroku
+
+1. To add a custom message to the root_route, create a views.py file in the drf_highlights directory and add the following code:
+```
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view()
+def root_route(request):
+    return Response({
+        "message": "Welcome to The Highlights DRF API!"
+    })
+```
+
+2. Import it into the main urls.py file, and add the following to the top of the urlpatterns list:  
+```
+from .views import root_route
+
+urlpatterns = [
+    path('', root_route),
+    ...
+]
+```
+
+3. To set up page pagination, inside settings.py add the following to REST_FRAMEWORK:  
+```
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+```
+
+4. Set the default renderer to JSON for the production environment. In settings.py add the following:  
+```
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+```
+
+5. To set up DATETIME_FORMAT, add the following to settings.py (inside REST_FRAMEWORK, under PAGE_SIZE):  
+```
+'DATETIME_FORMAT': '%d %b %y',
+```
+
+6. To show how long ago a comment was created, set DATETIME format inside the serializers.py file within the comments app:  
+```
+from django.contrib.humanize.templatetags.humanize import naturaltime
+
+created_on = serializers.SerializerMethodField()
+updated_on = serializers.SerializerMethodField()
+
+    def get_created_on(self, obj):
+        """Method to display when comment was posted"""
+        return naturaltime(obj.created_on)
+
+    def get_updated_on(self, obj):
+        """Method to display when comment was updated"""
+        return naturaltime(obj.updated_on)
+
+```
+
+7. Add, commit and push changes.
+
+### Deploy to ElephantSQL
+
+1. Log into ElephantSQL and create a new instance.
+
+2. Select the free plan.
+
+3. Select a local region.
+
+4. Click on 'Create Instance'
+
+5. Back on the dashboard click on the instance you just created.
+
+6. In the URL section, click the copy icon to copy the database URL.
+
+### Deploy to Heroku
+
+1. Log into Heroku.
+
+2. Create a new app.
+
+3. Go to 'Settings', click on 'Reveal Config Vars' and add the ElephantSQL DATABASE_URL (without any quotes).
+
+4. In the terminal, install dj_database_url and psycopg2, both of these are needed to connect to your external database: 
+`pip3 install dj_database_url==0.5.0 psycopg2`
+
+5. In your settings.py file, import dj_database_url underneath the import for os:
+```
+import os
+import dj_database_url
+```
+
+6. Update the DATABASES section to the following:
+```
+if 'DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+```  
+This will ensure that when you have an environment variable for DEV in your environment the code will connect to the sqlite database here in your IDE. Otherwise it will connect to your external database, provided the DATABASE_URL environment variable exist.
+
+7. In your env.py file, add a new environment variable with the key set to DATABASE_URL, and the value to your ElephantSQL database URL:
+```
+os.environ['DATABASE_URL'] = "<your PostgreSQL URL here>"
+```  
+Remember to add quotes as this needs to be a string.
+
+8. Temporarily comment out the DEV environment variable so that your IDE can connect to your external database:
+```
+import os
+
+os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+os.environ['SECRET_KEY'] = "Z7o..."
+# os.environ['DEV'] = '1'
+os.environ['DATABASE_URL'] = "postgres://..."
+```
+
+9. Back in your settings.py file, add a print statement to confirm you have connected to the external database
+```
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    print('connected')
+```
+
+10. In the terminal, -–dry-run your makemigrations to confirm you are connected to the external database:  
+`python3 manage.py makemigrations --dry-run`  
+If you are, you should see the ‘connected’ message printed to the terminal.
+
+11. Remove the print statement.
+
+12. Migrate your database models to your new database:
+`python3 manage.py migrate`\
+
+13. Create a superuser for your new database:
+`python3 manage.py createsuperuser`
+
+### Confirm the migration
+
+1. On the ElephantSQL page for your database, in the left side navigation, select “BROWSER”
+
+2. Click the Table queries button, select auth_user
+
+3. When you click “Execute”, you should see your newly created superuser details displayed. This confirms your tables have been created and you can add data to your database.
+
+### Prepare Project for deployment to Heroku
+
+1. In the terminal of your IDE workspace, install gunicorn
+`pip3 install gunicorn django-cors-headers`
+
+2. Update your requirements.txt
+`pip freeze --local > requirements.txt`
+
+3. Heroku also requires a `Procfile`. Create this file now. Remember, it must be named correctly and not have any file extension, otherwise Heroku won’t recognise it
+
+4. Inside the Procfile, add these two commands
+```
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn drf_api.wsgi
+```  
+Save the file.
+
+5. In your settings.py file, update the value of the ALLOWED_HOSTS variable to include your Heroku app’s URL
+```
+ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']
+```
+
+6. Add corsheaders to INSTALLED_APPS:
+```
+INSTALLED_APPS = [
+    ...
+    'dj_rest_auth.registration',
+    'corsheaders',
+    ...
+]
+```
+
+7. Add corsheaders middleware to the TOP of the MIDDLEWARE:
+```
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    ...
+]
+```
+
+8. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network requests made to the server with the following code:
+```
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
+```  
+Here the allowed origins are set for the network requests made to the server. The API will use the CLIENT_ORIGIN variable, which is the front end app's url. We haven't deployed that project yet, but that's ok. If the variable is not present, that means the project is still in development, so then the regular expression in the else statement will allow requests that are coming from your IDE.
+
+9. Enable sending cookies in cross-origin requests so that users can get authentication functionality
+```
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
+```
+
+10. To be able to have the front end app and the API deployed to different platforms, set the JWT_AUTH_SAMESITE attribute to 'None'. Without this the cookies would be blocked.
+```
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+```
+
+11. Remove the value for SECRET_KEY and replace with the following code to use an environment variable instead.
+```
+SECRET_KEY = os.getenv('SECRET_KEY')
+```
+
+12. Set a NEW value for your SECRET_KEY environment variable in env.py, do NOT use the same one that has been published to GitHub in your commits  
+[Django Secret Key Generator](https://djecrety.ir/)  
+```
+os.environ.setdefault("SECRET_KEY", "CreateANEWRandomValueHere")
+```
+
+13. Set the DEBUG value to be True only if the DEV environment variable exists. This will mean it is True in development, and False in production.
+```
+DEBUG = 'DEV' in os.environ
+```
+
+14. Comment DEV back in env.py
+```
+import os
+
+os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+os.environ['SECRET_KEY'] = "Z7o..."
+os.environ['DEV'] = '1'
+os.environ['DATABASE_URL'] = "postgres://..."
+```
+
+15. Ensure the project requirements.txt file is up to date. In the IDE terminal of your DRF API project enter the following:
+`pip freeze --local > requirements.txt`
+
+
+
+
+
+
+
+
+7. Install Gunicorn library by running the command:  
+`pip install gunicorn`
+
+8. Add a Procfile to the top level of the directory and add the following code to the file:
+```
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn drf_api.wsgi
+```
+
+9. Set ALLOWED_HOSTS in settings.py:
+```
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+]
+```
+
+10. Install Cors Headers library by running the command:  
+`pip install django-cors-headers`
+
+11. Add `'corsheaders'` to INSTALLED_APPS list in settings.py (underneath 'dj_rest_auth.registration')
+
+12. Add to the top of the MIDDLEWARE list in settings.py as follows:
+```
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+```
+
+13. Set allowed origins for network requests in settings.py:
+```
+if 'CLIENT_ORIGIN' in os.environ:
+     CORS_ALLOWED_ORIGINS = [
+         os.environ.get('CLIENT_ORIGIN'),
+         os.environ.get('CLIENT_ORIGIN_DEV')
+    ]
+
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
+```
+
+14. Set JWT_AUTH_SAMESITE to 'None' in settings py as follows:
+```
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+```
+
+15. In env.py, set SECRET_KEY generated from a [Django Secret Key Generator](https://djecrety.ir/):
+```
+os.environ['SECRET_KEY'] = 'secret key value here'
+```
+
+16. In settings.py, replace the default SECRET_KEY variable as follows:
+```
+SECRET_KEY = os.environ.get('SECRET_KEY')
+```
+
+17. In settings.py, set DEBUG as follows:
+```
+DEBUG = 'DEV' in os.environ
+```
+
+18. Copy the CLOUDINARY_URL and SECRET_KEY values from env.py and add them to Heroku config vars.
+
+19. Add config var COLLECT_STATIC and set to 1.
+
+20. Update requirements.txt file with new dependencies by running the command:  
+`pip freeze > requirements.txt`
+
+21. Add, commit and push changes.
+
+22. Go back to Heroku and click on 'Deploy'. Go to 'Deployment Method' and click on GitHub.
+
+23. Connect to the drf_highlights repository.
+
+24. In 'Manual Deploy' select Main branch and click 'Deploy Branch'.
+
+25. Monitor build log and deployment blog to ensure no error messages display. If build is successful, the app is now deployed.
+
+26. Click on 'Open app' to access deployed app.
 
 ## Validation
 
