@@ -20,7 +20,7 @@ class Highlight(models.Model):
     ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=250)
     description = models.TextField(blank=True)
     category = models.CharField(

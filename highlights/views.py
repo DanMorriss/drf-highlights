@@ -32,6 +32,7 @@ class HighlightList(generics.ListCreateAPIView):
         'category',
         'tagged_user__username',
         'description',
+        'created_on',
         # 'location',
     ]
     ordering_fields = [
