@@ -674,6 +674,66 @@ os.environ['DATABASE_URL'] = "postgres://..."
 Then to view the logs:  
 `heroku logs --tail --app drf-highlights`
 
+### Fix the dj-rest-auth issue with logging out
+
+1. In drf_highlights/views.py, import JWT_AUTH settings from settings.py.
+```
+from .settings.responses import (
+    JWT_AUTH_COOKIE,
+    JWT_AUTH_REFRESH_COOKE,
+    JWT_AUTH_SAMESITE,
+    JWT_AUTH_SECURE
+)
+```
+
+2. Write a logout view. That sets the value of both the access token (JWT_AUTH_COOKIE) and refresh token (JWT_AUTH_REFRESH_COOKIE) to empty strings. We also pass samesite=JWT_AUTH_SAMESITE, which we set to ’None’ in settings.py and make sure the cookies are httponly and sent over HTTPS
+```
+# dj-rest-auth logout view fix
+@api_view(['POST'])
+def logout_route(request):
+    response = Response()
+    response.set_cookie(
+        key=JWT_AUTH_COOKIE,
+        value='',
+        httponly=True,
+        expires='Thu, 01 Jan 1970 00:00:00 GMT',
+        max_age=0,
+        samesite=JWT_AUTH_SAMESITE,
+        secure=JWT_AUTH_SECURE
+    )
+    response.set_cookie(
+        key=JWT_AUTH_REFRESH_COOKE,
+        value='',
+        httponly=True,
+        expires='Thu, 01 Jan 1970 00:00:00 GMT',
+        max_age=0,
+        samesite=JWT_AUTH_SAMESITE,
+        secure=JWT_AUTH_SECURE
+    )
+    return response
+```
+
+3. Now that the logout view is there, it has to be included in drf_api/urls.py . The logout_route also needs to be imported.
+Inside drf_highlights/urls.py add the following import:
+```
+from .views import route_route, logout_route
+```
+
+4. ... and then included in the urlpatterns list. The important thing to note here is that our logout_route has to be placed above the default dj-rest-auth urls, so that it is matched first.
+```
+urlpatterns = [
+    ...
+    # our logout route has to be above the default one to be matched first
+    path('dj-rest-auth/logout/', logout_route),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    ...
+]
+```
+
+5. Add, commit and push your code to GitHub.
+
+6. Redeploy to Heroku.
+
 
 
 ## Validation
