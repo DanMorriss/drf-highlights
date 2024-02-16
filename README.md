@@ -734,7 +734,42 @@ urlpatterns = [
 
 6. Redeploy to Heroku.
 
+### Add ALLOWED_HOSTS and CLIENT_ORIGIN_DEV to settings.py
 
+1. In settings.py, in the ALLOWED_HOSTS list, copy your ‘... .herokuapp.com’ string.
+2. Log in to heroku.com and select your API application.
+3. Click “settings”
+4. Click “Reveal config vars”
+5. Add the new key of ALLOWED_HOST with the value for your deployed Heroku application URL that we copied from settings.py
+6. Back in settings.py, replace your ALLOWED HOSTS list '... .herokuapp.com' string we just copied with the ALLOWED_HOST environment variable.
+```
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+]
+```
+
+In order to make our application more secure and accommodate the way Gitpod works by changing the workspace URL regularly, the below code has been provided for you to add to your project.
+
+The following code works as follows:
+a) When the CLIENT_ORIGIN_DEV environment variable is defined, the unique part of your gitpod preview URL is extracted.
+b) It is then included in the regular expression provided by us so that the gitpod workspace is still connected to our API when gitpod rotates the workspace URL.
+
+1. Import the regular expression module at the top of your settings.py file. We will need this to manipulate the CLIENT_ORIGIN_DEV URL string.
+```
+import re
+```
+
+2. Replace the else statement and body for `if 'CLIENT_ORIGIN' in os.environ:` with the following code:
+```
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
+```
+
+3. Add, commit and push your changes.
 
 ## Validation
 
