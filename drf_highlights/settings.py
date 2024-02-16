@@ -68,6 +68,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'https://drf-highlights-319d26c2d75e.herokuapp.com',
+    'drf-highlights-319d26c2d75e.herokuapp.com',
 ]
 
 
