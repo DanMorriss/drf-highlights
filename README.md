@@ -126,39 +126,62 @@ To create a superuser
 `python manage.py createsuperuser`
 
 ##### User
-The user model contains information about the user and is part of the Django allauth library
-- One-to-one relationship with the profile model's owner field
-- ForeignKey relationship with the follower model's owner & followed fields
-- ForeignKey relationship with the highlight model's owner & tagged_users fields
-- ForeignKey relationship with the tagged_users model's highlight_owner & tagged_user fields
-- ForeignKey relationship with the like model's owner field
-- ForeignKey relationship with the comment model's owner field
+
 
 ##### Profile
-The profile model contains the following information used in users profiles
-- id
-- owner (ForeignKey)
-    - One to one relationship with the user model's id field
-- created_on
-- updated_on
-- name
-- bio
-- image
+
+owner = models.OneToOneField(User, on_delete=models.CASCADE)
+created_at = models.DateTimeField(auto_now_add=True)
+updated_at = models.DateTimeField(auto_now_add=True)
+name = models.CharField(max_length=75, blank=True)
+bio = models.TextField(blank=True)
+image = models.ImageField(upload_to='images/', default='../default_profile_l3qmwk')
+location = models.CharField(max_length=100, blank=True, null=True)
 
 ##### Follower
 
-##### highlight
+owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
+followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed")
+created_at = models.DateTimeField(auto_now_add=True)
+
+##### Highlight
+
+owner = models.ForeignKey(User, on_delete=models.CASCADE)
+created_on = models.DateTimeField(auto_now_add=True)
+updated_on = models.DateField(auto_now_add=True)
+title = models.CharField(max_length=250)
+description = models.TextField(blank=True)
+category = models.CharField(max_length=250, choices=categories, blank=True, null=True, default=None)
+image = models.ImageField(upload_to='images/', default='../default_image_rfyixk', blank=True)
+location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
+tagged_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tagged_user', blank=True, null=True, default=None)
 
 ##### Location
 
-- id
-- name
-- latitude models.DecimalField(max_digits=9, decimal_places=6) 
-- longitude
+name = models.CharField(max_length=255)
+latitude = models.DecimalField(max_digits=9, decimal_places=6)
+longitude = models.DecimalField(max_digits=9, decimal_places=6)
+geolocation = models.PointField(geography=True, blank=True, null=True)
 
 ##### Like
 
+owner = models.ForeignKey(User, on_delete=models.CASCADE)
+highlight = models.ForeignKey(Highlight, on_delete=models.CASCADE)
+created_on = models.DateTimeField(auto_now_add=True)
+
 ##### Comment
+
+owner = models.ForeignKey(User, on_delete=models.CASCADE)
+highlight = models.ForeignKey(Highlight, on_delete=models.CASCADE)
+created_on = models.DateTimeField(auto_now_add=True)
+updated_on = models.DateTimeField(auto_now_add=True)
+content = models.TextField()
+
+##### Feedback
+
+user = models.ForeignKey(User, on_delete=models.CASCADE)
+content = models.TextField()
+created_at = models.DateTimeField(auto_now_add=True)
 
 #### Wireframes
 
@@ -539,7 +562,7 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 4. Inside the Procfile, add these two commands
 ```
 release: python manage.py makemigrations && python manage.py migrate
-web: gunicorn drf_api.wsgi
+web: gunicorn drf_highlights.wsgi
 ```  
 Save the file.
 
@@ -649,7 +672,7 @@ os.environ['DATABASE_URL'] = "postgres://..."
 8. Your app should be successfully deployed to Heorku. If there was an error and you need to view your logs log in to heroku with the following command:  
 `heroku login`  
 Then to view the logs:  
-`heroku logs --tail --drf-highlights`
+`heroku logs --tail --app drf-highlights`
 
 
 
