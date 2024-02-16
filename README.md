@@ -448,7 +448,7 @@ updated_on = serializers.SerializerMethodField()
 
 6. In the URL section, click the copy icon to copy the database URL.
 
-### Deploy to Heroku
+### Create a Heroku app
 
 1. Log into Heroku.
 
@@ -625,107 +625,33 @@ os.environ['DATABASE_URL'] = "postgres://..."
 15. Ensure the project requirements.txt file is up to date. In the IDE terminal of your DRF API project enter the following:
 `pip freeze --local > requirements.txt`
 
+16. Add, commit and push your code to GitHub
+
+### Deploying to Heroku
+
+1. Back on the Heroku dashboard for your new app, open the Settings tab.
+
+2. Add two more Config Vars:
+    - SECRET_KEY (you can make one up, but don’t use the one that was originally in the settings.py file!)
+    - CLOUDINARY_URL, and for the value, copy in your Cloudinary URL from your env.py file (do not add quotation marks!)
+    - You should already have DATABASE_URL (postgress) and DISABLE_COLLECTSTATIC (set to 1)
+
+3. Open the Deploy tab.
+
+4. In the Deployment method section, select Connect to GitHub.
+
+5. Search for your repo and click Connect
+
+6. Optional: You can click Enable Automatic Deploys in case you make any further changes to the project. This will trigger any time code is pushed to your GitHub repository
+
+7. Under Manual deploy click `Deploy Branch`
+
+8. Your app should be successfully deployed to Heorku. If there was an error and you need to view your logs log in to heroku with the following command:  
+`heroku login`  
+Then to view the logs:  
+`heroku logs --tail --drf-highlights`
 
 
-
-
-
-
-
-7. Install Gunicorn library by running the command:  
-`pip install gunicorn`
-
-8. Add a Procfile to the top level of the directory and add the following code to the file:
-```
-release: python manage.py makemigrations && python manage.py migrate
-web: gunicorn drf_api.wsgi
-```
-
-9. Set ALLOWED_HOSTS in settings.py:
-```
-ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
-    'localhost',
-]
-```
-
-10. Install Cors Headers library by running the command:  
-`pip install django-cors-headers`
-
-11. Add `'corsheaders'` to INSTALLED_APPS list in settings.py (underneath 'dj_rest_auth.registration')
-
-12. Add to the top of the MIDDLEWARE list in settings.py as follows:
-```
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-```
-
-13. Set allowed origins for network requests in settings.py:
-```
-if 'CLIENT_ORIGIN' in os.environ:
-     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN'),
-         os.environ.get('CLIENT_ORIGIN_DEV')
-    ]
-
-else:
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-    ]
-
-CORS_ALLOW_CREDENTIALS = True
-```
-
-14. Set JWT_AUTH_SAMESITE to 'None' in settings py as follows:
-```
-REST_USE_JWT = True
-JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
-```
-
-15. In env.py, set SECRET_KEY generated from a [Django Secret Key Generator](https://djecrety.ir/):
-```
-os.environ['SECRET_KEY'] = 'secret key value here'
-```
-
-16. In settings.py, replace the default SECRET_KEY variable as follows:
-```
-SECRET_KEY = os.environ.get('SECRET_KEY')
-```
-
-17. In settings.py, set DEBUG as follows:
-```
-DEBUG = 'DEV' in os.environ
-```
-
-18. Copy the CLOUDINARY_URL and SECRET_KEY values from env.py and add them to Heroku config vars.
-
-19. Add config var COLLECT_STATIC and set to 1.
-
-20. Update requirements.txt file with new dependencies by running the command:  
-`pip freeze > requirements.txt`
-
-21. Add, commit and push changes.
-
-22. Go back to Heroku and click on 'Deploy'. Go to 'Deployment Method' and click on GitHub.
-
-23. Connect to the drf_highlights repository.
-
-24. In 'Manual Deploy' select Main branch and click 'Deploy Branch'.
-
-25. Monitor build log and deployment blog to ensure no error messages display. If build is successful, the app is now deployed.
-
-26. Click on 'Open app' to access deployed app.
 
 ## Validation
 

@@ -67,7 +67,7 @@ ALLOWED_HOSTS = [
     '8000-danmorriss-drfhighlight-cosich24lqt.ws-eu108.gitpod.io',
     '127.0.0.1',
     'localhost',
-    'https://drf-highlights.herokuapp.com',
+    'https://drf-highlights-319d26c2d75e.herokuapp.com',
 ]
 
 
@@ -158,8 +158,8 @@ if 'DEV' in os.environ:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
