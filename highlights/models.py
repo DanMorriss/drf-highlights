@@ -25,7 +25,6 @@ class Highlight(models.Model):
     description = models.TextField(blank=True)
     category = models.CharField(
         max_length=250,
-        choices=categories,
         blank=True,
         null=True,
         default=None
@@ -33,7 +32,8 @@ class Highlight(models.Model):
     image = models.ImageField(
         upload_to='images/',
         default='../default_image_rfyixk',
-        blank=True
+        blank=True,
+        null=True
     )
     location = models.ForeignKey(
         Location,
