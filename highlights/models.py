@@ -31,7 +31,7 @@ class Highlight(models.Model):
     )
     image = models.ImageField(
         upload_to='images/',
-        default='../default_image_rfyixk',
+        # default='../default_image_rfyixk',
         blank=True,
         null=True
     )
