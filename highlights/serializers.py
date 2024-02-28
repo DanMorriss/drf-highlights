@@ -10,6 +10,7 @@ class HighlightSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     comments_count = serializers.ReadOnlyField()
     likes_count = serializers.ReadOnlyField()
+    created_on = serializers.DateTimeField(format='%A %d %B %Y')
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
