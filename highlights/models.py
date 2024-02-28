@@ -28,6 +28,7 @@ class Highlight(models.Model):
         blank=True,
         null=True,
         default=None,
+        choices=categories
     )
     image = models.ImageField(
         upload_to='images/',
