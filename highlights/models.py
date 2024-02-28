@@ -20,18 +20,18 @@ class Highlight(models.Model):
     ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=250)
     description = models.TextField(blank=True)
     category = models.CharField(
         max_length=250,
-        choices=categories,
         blank=True,
         null=True,
-        default=None
+        default=None,
     )
     image = models.ImageField(
         upload_to='images/',
+        # default='../default_image_rfyixk',
         blank=True,
         null=True
     )
