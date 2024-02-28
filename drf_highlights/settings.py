@@ -71,6 +71,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'https://drf-highlights-319d26c2d75e.herokuapp.com',
     # 'drf-highlights-319d26c2d75e.herokuapp.com',
+    '8000-danmorriss-drfhighlight-6i3tp5q7b1o.ws-eu108.gitpod.io',
 ]
 
 

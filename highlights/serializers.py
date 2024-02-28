@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Highlight
 from likes.models import Like
 
+
 class HighlightSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -12,6 +13,8 @@ class HighlightSerializer(serializers.ModelSerializer):
     likes_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
+        if value is None:
+            return
         if value.size > 2 * 1024 * 1024:
             raise serializers.ValidationError(
                 'Image size larger than 2MB!'
