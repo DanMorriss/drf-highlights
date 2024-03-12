@@ -3,14 +3,16 @@ from .models import Feedback
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    """Feedback serializer to convert Feedback model to JSON"""
 
     class Meta:
         """Meta field to specify the model and fields"""
         model = Feedback
         fields = [
             'id',
-            'user',
+            'first_name',
+            'last_name',
+            'email',
             'content',
             'created_at'
         ]

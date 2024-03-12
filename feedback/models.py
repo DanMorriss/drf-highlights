@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 class Feedback(models.Model):
     """Model for the feedback form"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    email = models.CharField(max_length=25, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
