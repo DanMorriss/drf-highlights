@@ -13,5 +13,5 @@ class FeedbackList(generics.ListCreateAPIView):
     ]
     search_fields = ['user__username', 'content']
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
