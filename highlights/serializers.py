@@ -11,7 +11,6 @@ class HighlightSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     comments_count = serializers.ReadOnlyField()
     likes_count = serializers.ReadOnlyField()
-    # created_on = serializers.DateTimeField(format='%A %d %B %Y')
 
     def validate_image(self, value):
         if value is None:
@@ -55,6 +54,7 @@ class HighlightSerializer(serializers.ModelSerializer):
             'updated_on',
             'title',
             'description',
+            'improve',
             'category',
             'image',
             'location',
