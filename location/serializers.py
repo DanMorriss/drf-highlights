@@ -7,6 +7,7 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = [
             'id',
+            'owner',
             'name',
             'latitude',
             'longitude'
