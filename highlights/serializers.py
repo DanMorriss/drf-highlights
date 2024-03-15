@@ -1,9 +1,18 @@
+# Imports
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 3rd party:
 from rest_framework import serializers
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Internal:
 from .models import Highlight
 from likes.models import Like
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 class HighlightSerializer(serializers.ModelSerializer):
+    """
+    A class for the highlight model serializer
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -13,6 +22,10 @@ class HighlightSerializer(serializers.ModelSerializer):
     likes_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
+        """
+        Validates that the image is not larger than 2MB,
+        higher than 4096px and wider than 4096px
+        """
         if value is None:
             return
         if value.size > 2 * 1024 * 1024:
@@ -30,10 +43,16 @@ class HighlightSerializer(serializers.ModelSerializer):
         return value
 
     def get_is_owner(self, obj):
+        """
+        Returns True if the current user is the owner of the highlight
+        """
         request = self.context['request']
         return request.user == obj.owner
 
     def get_like_id(self, obj):
+        """
+        Returns the like id
+        """
         user = self.context['request'].user
         if user.is_authenticated:
             like = Like.objects.filter(
