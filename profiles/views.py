@@ -1,12 +1,20 @@
+# Imports
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 3rd party:
 from django.db.models import Count
 from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Internal:
 from .models import Profile
 from .serializers import ProfileSerializer
 from drf_highlights.permissions import IsOwnerOrReadOnly
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 class ProfileList(generics.ListAPIView):
+    """
+    A class for the profile list view"""
     # annotate adds a new field to the queryset
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__highlight', distinct=True),
@@ -38,6 +46,9 @@ class ProfileList(generics.ListAPIView):
 
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
+    """
+    A class for the profile detail view
+    """
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__highlight', distinct=True),
         followers_count=Count('owner__followed', distinct=True),
