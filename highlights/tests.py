@@ -16,7 +16,7 @@ class HighlightDetailViewTest(APITestCase):
             username='testuser1',
             password='testpassword'
         )
-        test_user2 = User.objects.create_user(
+        User.objects.create_user(
             username='testuser2',
             password='testpassword'
         )
