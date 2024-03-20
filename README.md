@@ -2,6 +2,28 @@
 
 # Highlights - API
 
+## Table of Contents
+
+- [About](#about)
+- [Database Schema](#database-schema)
+- [Technologies Used](#technologies-used)
+   * [Languages and Frameworks](#languages-and-frameworks)
+   * [Libraries & Tools](#libraries-tools)
+   * [Platforms](#platforms)
+- [Validation & Testing](#validation-testing)
+- [Bugs](#bugs)
+- [Project Setup](#project-setup)
+- [Deployment](#deployment)
+   * [Setup JSON Web Tokens](#setup-json-web-tokens)
+   * [Prepare API for deployment to Heroku](#prepare-api-for-deployment-to-heroku)
+   * [Deploy to ElephantSQL](#deploy-to-elephantsql)
+   * [Create a Heroku app](#create-a-heroku-app)
+   * [Confirm the migration](#confirm-the-migration)
+   * [Prepare Project for deployment to Heroku](#prepare-project-for-deployment-to-heroku)
+   * [Deploying to Heroku](#deploying-to-heroku)
+   * [Fix the dj-rest-auth issue with logging out](#fix-the-dj-rest-auth-issue-with-logging-out)
+   * [Add ALLOWED_HOSTS and CLIENT_ORIGIN_DEV to settings.py](#add-allowed_hosts-and-client_origin_dev-to-settingspy)
+
 ## About
 
 Highlights ia a social media platform designed to cultivate gratitude and positivity in everyday life. Inspired by the principles of the Five Minute Journal, our platform provides users with a space to share the highlights of their day and connect with others in a supportive online community.
@@ -17,6 +39,8 @@ Key Features:
 - [Frontend Deployed](https://pp5-highlights-a86c2f8f4016.herokuapp.com/)
 - [Backend Deployed](https://drf-highlights-319d26c2d75e.herokuapp.com/)
 
+[Back to top](#highlights-api)
+
 ## Database Schema
 
 ![Database schema](docs/database_schema.png)
@@ -31,6 +55,8 @@ Then add it to the `INTALLED_APPS` list in settings.py
 
 - To create a superuser  
 `python manage.py createsuperuser`
+
+[Back to top](#highlights-api)
 
 ## Technologies Used
 
@@ -65,6 +91,7 @@ To install the requirements use the command, make sure your venv is activated
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Lucid Chart](https://lucid.app/) - Database schema design
 - [Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Mark Down Tables
+- [Table of Contents Generator](https://derlin.github.io/bitdowntoc/) - Table of Contents
 
 ### Platforms
 
@@ -75,6 +102,8 @@ To install the requirements use the command, make sure your venv is activated
 - [ElephantSQL](https://customer.elephantsql.com/login) - Hosting of DRF database
 - [Heroku](https://dashboard.heroku.com/apps) - Hosting of deployed DRF database
 
+[Back to top](#highlights-api)
+
 ## Validation & Testing
 
 - All files were passed through the [Code Institute PEP8 Validation Tool](https://pep8ci.herokuapp.com/) and came back with no errors, with the exception of some lines being too long in settings.py. As these were URL's and could not be shortened I decided to leave them in.
@@ -82,9 +111,13 @@ To install the requirements use the command, make sure your venv is activated
 
 - For details on testing see the [Testing File](TESTING.md)
 
+[Back to top](#highlights-api)
+
 ## Bugs
 
 - I had a circular import between highlight and location. Removing the highlight import fixed the issue. I also had to allow the field to be null as there are some highlights that do not have a location.
+
+[Back to top](#highlights-api)
 
 ## Project Setup
 
@@ -133,6 +166,8 @@ CLOUDINARY_STORAGE = {
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 ```
+
+[Back to top](#highlights-api)
 
 ## Deployment
 
@@ -250,6 +285,8 @@ REST_AUTH_SERIALIZERS = {
 
 17. Add, commit and push changes.
 
+[Back to top](#highlights-api)
+
 ### Prepare API for deployment to Heroku
 
 1. To add a custom message to the root_route, create a views.py file in the drf_highlights directory and add the following code:
@@ -321,6 +358,8 @@ updated_on = serializers.SerializerMethodField()
 
 7. Add, commit and push changes.
 
+[Back to top](#highlights-api)
+
 ### Deploy to ElephantSQL
 
 1. Log into ElephantSQL and create a new instance.
@@ -334,6 +373,8 @@ updated_on = serializers.SerializerMethodField()
 5. Back on the dashboard click on the instance you just created.
 
 6. In the URL section, click the copy icon to copy the database URL.
+
+[Back to top](#highlights-api)
 
 ### Create a Heroku app
 
@@ -405,6 +446,8 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 13. Create a superuser for your new database:
 `python3 manage.py createsuperuser`
 
+[Back to top](#highlights-api)
+
 ### Confirm the migration
 
 1. On the ElephantSQL page for your database, in the left side navigation, select “BROWSER”
@@ -412,6 +455,8 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 2. Click the Table queries button, select auth_user
 
 3. When you click “Execute”, you should see your newly created superuser details displayed. This confirms your tables have been created and you can add data to your database.
+
+[Back to top](#highlights-api)
 
 ### Prepare Project for deployment to Heroku
 
@@ -514,6 +559,8 @@ os.environ['DATABASE_URL'] = "postgres://..."
 
 16. Add, commit and push your code to GitHub
 
+[Back to top](#highlights-api)
+
 ### Deploying to Heroku
 
 1. Back on the Heroku dashboard for your new app, open the Settings tab.
@@ -537,6 +584,8 @@ os.environ['DATABASE_URL'] = "postgres://..."
 `heroku login`  
 Then to view the logs:  
 `heroku logs --tail --app drf-highlights`
+
+[Back to top](#highlights-api)
 
 ### Fix the dj-rest-auth issue with logging out
 
@@ -598,6 +647,8 @@ urlpatterns = [
 
 6. Redeploy to Heroku.
 
+[Back to top](#highlights-api)
+
 ### Add ALLOWED_HOSTS and CLIENT_ORIGIN_DEV to settings.py
 
 1. In settings.py, in the ALLOWED_HOSTS list, copy your ‘... .herokuapp.com’ string.
@@ -634,3 +685,5 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 ```
 
 3. Add, commit and push your changes.
+
+[Back to top](#highlights-api)

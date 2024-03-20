@@ -1,5 +1,20 @@
 # Highlights DFR API - Testing
 
+## Table of Contents
+
+- [Validation](#validation)
+- [Unit Testing](#unit-testing)
+   * [Comments](#comments)
+   * [Feedback](#feedback)
+   * [Followers](#followers)
+   * [Highlights](#highlights)
+   * [Likes](#likes)
+   * [Location](#location)
+   * [Profiles](#profiles)
+- [Manual Testing](#manual-testing)
+   * [URL Testing](#url-testing)
+   * [CRUD Testing](#crud-testing)
+
 ## Validation
 
 - All files were passed through the [Code Institute PEP8 Validation Tool](https://pep8ci.herokuapp.com/) and came back with no errors, with the exception of some lines being too long in settings.py. As these were URL's and could not be shortened I decided to leave them in.
