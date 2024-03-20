@@ -79,3 +79,12 @@ The following URLs were tested:
 
 All apps were tested for full Create, Read, Update and Delete functionality.
 
+| App        | Create | Read | Update | Delete |
+|------------|--------|------|--------|--------|
+| Comments   | Y      | Y    | Y      | Y      |
+| Feedback   | Y      | Y    | Y      | Y      |
+| Followers  | Y      | Y    | Y      | Y      |
+| Highlights | Y      | Y    | Y      | Y      |
+| Likes      | Y      | Y    | Y      | Y      |
+| Locations  | Y      | Y    | Y      | Y      |
+| Profiles   | Y      | Y    | Y      | Y      |
