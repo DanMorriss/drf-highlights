@@ -61,7 +61,6 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
@@ -70,12 +69,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'https://drf-highlights-319d26c2d75e.herokuapp.com',
-    # 'drf-highlights-319d26c2d75e.herokuapp.com',
     '8000-danmorriss-drfhighlight-6i3tp5q7b1o.ws-eu108.gitpod.io',
 ]
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
