@@ -64,6 +64,7 @@ To install the requirements use the command, make sure your venv is activated
 - [Gunicorn](https://pypi.org/project/gunicorn/20.1.0/) - Python WSGI HTTP Server
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Lucid Chart](https://lucid.app/) - Database schema design
+- [Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Mark Down Tables
 
 ### Platforms
 
