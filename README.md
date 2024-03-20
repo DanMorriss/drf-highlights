@@ -39,7 +39,7 @@ Key Features:
 - [Frontend Deployed](https://pp5-highlights-a86c2f8f4016.herokuapp.com/)
 - [Backend Deployed](https://drf-highlights-319d26c2d75e.herokuapp.com/)
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ## Database Schema
 
@@ -56,7 +56,7 @@ Then add it to the `INTALLED_APPS` list in settings.py
 - To create a superuser  
 `python manage.py createsuperuser`
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ## Technologies Used
 
@@ -102,7 +102,7 @@ To install the requirements use the command, make sure your venv is activated
 - [ElephantSQL](https://customer.elephantsql.com/login) - Hosting of DRF database
 - [Heroku](https://dashboard.heroku.com/apps) - Hosting of deployed DRF database
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ## Validation & Testing
 
@@ -111,13 +111,15 @@ To install the requirements use the command, make sure your venv is activated
 
 - For details on testing see the [Testing File](TESTING.md)
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ## Bugs
 
 - I had a circular import between highlight and location. Removing the highlight import fixed the issue. I also had to allow the field to be null as there are some highlights that do not have a location.
 
-[Back to top](#highlights-api)
+There are no known unfixed bugs.
+
+[Back to top](#table-of-contents)
 
 ## Project Setup
 
@@ -167,7 +169,7 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 ```
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ## Deployment
 
@@ -285,7 +287,7 @@ REST_AUTH_SERIALIZERS = {
 
 17. Add, commit and push changes.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Prepare API for deployment to Heroku
 
@@ -358,7 +360,7 @@ updated_on = serializers.SerializerMethodField()
 
 7. Add, commit and push changes.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Deploy to ElephantSQL
 
@@ -374,7 +376,7 @@ updated_on = serializers.SerializerMethodField()
 
 6. In the URL section, click the copy icon to copy the database URL.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Create a Heroku app
 
@@ -446,7 +448,7 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 13. Create a superuser for your new database:
 `python3 manage.py createsuperuser`
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Confirm the migration
 
@@ -456,7 +458,7 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 
 3. When you click “Execute”, you should see your newly created superuser details displayed. This confirms your tables have been created and you can add data to your database.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Prepare Project for deployment to Heroku
 
@@ -559,7 +561,7 @@ os.environ['DATABASE_URL'] = "postgres://..."
 
 16. Add, commit and push your code to GitHub
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Deploying to Heroku
 
@@ -585,7 +587,7 @@ os.environ['DATABASE_URL'] = "postgres://..."
 Then to view the logs:  
 `heroku logs --tail --app drf-highlights`
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Fix the dj-rest-auth issue with logging out
 
@@ -647,7 +649,7 @@ urlpatterns = [
 
 6. Redeploy to Heroku.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
 
 ### Add ALLOWED_HOSTS and CLIENT_ORIGIN_DEV to settings.py
 
@@ -686,4 +688,4 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 3. Add, commit and push your changes.
 
-[Back to top](#highlights-api)
+[Back to top](#table-of-contents)
