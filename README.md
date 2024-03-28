@@ -1,6 +1,10 @@
-**Portfolio Project 5**
-
 # Highlights - API
+
+![mockup image](./docs/mockup.jpg)
+
+- [Deployed Frontend Site](https://pp5-highlights-a86c2f8f4016.herokuapp.com/)  
+- [Deployed API](https://drf-highlights-319d26c2d75e.herokuapp.com/)  
+- [Frontend Repo](https://github.com/DanMorriss/highlights)
 
 ## Table of Contents
 
@@ -39,7 +43,7 @@ Key Features:
 - [Frontend Deployed](https://pp5-highlights-a86c2f8f4016.herokuapp.com/)
 - [Backend Deployed](https://drf-highlights-319d26c2d75e.herokuapp.com/)
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Database Schema
 
@@ -56,28 +60,40 @@ Then add it to the `INTALLED_APPS` list in settings.py
 - To create a superuser  
 `python manage.py createsuperuser`
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Technologies Used
 
 - A full list of the requirements and the versions used can be found in the requirements.txt file.  
 The requirements.txt file can be created/updated by running the following command:  
-`pip freeze > requirements.txt`
+```
+pip freeze > requirements.txt
+```
 
 - To install them and run them on your own machine first setup a virtual environment with the command to create a venv...  
-`python3 -m venv venv`  
+```
+python3 -m venv venv
+```  
 Then this command to run the venv run the command  
-`source venv/bin/activate`  
+```
+source venv/bin/activate
+```  
 To stop running the environment simply type the command  
-`deactivate`  
+```
+deactivate
+```  
 To install the requirements use the command, make sure your venv is activated  
-`pip install -r requirements.txt`  
+```
+pip install -r requirements.txt
+```  
 
 ### Languages and Frameworks
 
 - Python
 - [Django Rest Framework](https://www.django-rest-framework.org/)  
-`pip install djangorestframework`
+```
+pip install djangorestframework
+```
 
 ### Libraries & Tools
 
@@ -102,7 +118,7 @@ To install the requirements use the command, make sure your venv is activated
 - [ElephantSQL](https://customer.elephantsql.com/login) - Hosting of DRF database
 - [Heroku](https://dashboard.heroku.com/apps) - Hosting of deployed DRF database
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Validation & Testing
 
@@ -111,7 +127,7 @@ To install the requirements use the command, make sure your venv is activated
 
 - For details on testing see the [Testing File](TESTING.md)
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Bugs
 
@@ -119,19 +135,27 @@ To install the requirements use the command, make sure your venv is activated
 
 There are no known unfixed bugs.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Project Setup
 
 1. Use the [Code Institute Template](https://github.com/Code-Institute-Org/gitpod-full-template) to create a new repository on GitHub.
 2. Install Django Rest Framework with the following command
-    - `pip3 install 'django<4'`
+    ```
+    pip3 install 'django<4
+    ```
 3. Initialize the project with the following command
-    - `django-admin startproject drf_highlights .`
+    ```
+    django-admin startproject drf_highlights .
+    ```
 4. Install Django Cloudinary Storage for image storage with the following command
-    - `pip install django-cloudinary-storage`
+    ```
+    pip install django-cloudinary-storage
+    ```
 5. Install Pillow for image processing with the following command
-    - `pip install Pillow`
+    ```
+    pip install Pillow
+    ```
 6. Add `cloudinary` and `cloudinary_storage` to `INSTALLED_APPS` in settings.py with `django.contrib.staticfiles` between them
 ```
 INSTALLED_APPS = [
@@ -169,14 +193,16 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 ```
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ## Deployment
 
 ### Setup JSON Web Tokens
 
 1. install JSON Web Token authentication run terminal command:  
-`pip install dj-rest-auth==2.1.9`
+```
+pip install dj-rest-auth==2.1.9
+```
 2. Add 'rest_framework.authtoken' and 'dj_rest_auth' to the list of INSTALLED_APPS in settings.py as below:
 ```
 INSTALLED_APPS = [
@@ -206,10 +232,14 @@ urlpatterns = [
 ]
 ```
 4. Migrate the database with terminal command:  
-`python manage.py migrate`
+```
+python manage.py migrate
+```
 
 5. For users to be able to register, install Django AllAuth with terminal command:  
-`pip install 'dj-rest-auth[with_social]'`
+```
+pip install 'dj-rest-auth[with_social]'
+```
 
 6. Add the following INSTALLED_APPS to settings.py:  
 ```
@@ -220,7 +250,9 @@ urlpatterns = [
     'dj_rest_auth.registration',
 ```
 7. Set SITE_ID in settings.py to 1:  
-`SITE_ID = 1`
+```
+SITE_ID = 1
+```
 
 8. Add the registration urls below to the main urls.py file:  
 ```
@@ -230,10 +262,14 @@ urlpatterns = [
 ```
 
 9. To install the JSON tokens, run terminal command:  
-`pip install djangorestframework-simplejwt`
+```
+pip install djangorestframework-simplejwt
+```
 
 10. Set DEV to 1 in the env.py file:  
-`os.environ['DEV'] = '1'`
+```
+os.environ['DEV'] = '1'
+```
 
 11. This value can be used to check if project is in development or production. Add the following if/else statement to settings.py:
 ```
@@ -246,8 +282,8 @@ REST_FRAMEWORK = {
 }
 ```
 
-12. - To enable token authentication, set REST_USE_JWT to True.  
-    - To ensure tokens are sent over HTTPS only, set JWT_AUTH_SECURE to True.  
+12. - To enable token authentication, set `REST_USE_JWT` to `True`.  
+    - To ensure tokens are sent over HTTPS only, set `JWT_AUTH_SECURE` to `True`.  
     - Cookie names must also be declared. To do all of this, add the following code below the if/else statement just added to settings.py:
 ```
 REST_USE_JWT = True
@@ -280,14 +316,18 @@ REST_AUTH_SERIALIZERS = {
 ```
 
 15. Migrate the database again with command:  
-`python manage.py migrate`
+```
+python manage.py migrate
+```
 
 16. Update requirements.txt file with new dependencies by running command:  
-`pip freeze > requirements.txt`
+```
+pip freeze > requirements.txt
+```
 
 17. Add, commit and push changes.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Prepare API for deployment to Heroku
 
@@ -360,7 +400,7 @@ updated_on = serializers.SerializerMethodField()
 
 7. Add, commit and push changes.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Deploy to ElephantSQL
 
@@ -376,7 +416,7 @@ updated_on = serializers.SerializerMethodField()
 
 6. In the URL section, click the copy icon to copy the database URL.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Create a Heroku app
 
@@ -384,10 +424,12 @@ updated_on = serializers.SerializerMethodField()
 
 2. Create a new app.
 
-3. Go to 'Settings', click on 'Reveal Config Vars' and add the ElephantSQL DATABASE_URL (without any quotes).
+3. Go to `Settings`, click on `Reveal Config Vars` and add the ElephantSQL `DATABASE_URL` (without any quotes).
 
 4. In the terminal, install dj_database_url and psycopg2, both of these are needed to connect to your external database: 
-`pip3 install dj_database_url==0.5.0 psycopg2`
+```
+pip3 install dj_database_url==0.5.0 psycopg2
+```
 
 5. In your settings.py file, import dj_database_url underneath the import for os:
 ```
@@ -409,9 +451,9 @@ else:
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
 ```  
-This will ensure that when you have an environment variable for DEV in your environment the code will connect to the sqlite database here in your IDE. Otherwise it will connect to your external database, provided the DATABASE_URL environment variable exist.
+This will ensure that when you have an environment variable for `DEV` in your environment the code will connect to the sqlite database here in your IDE. Otherwise it will connect to your external database, provided the `DATABASE_URL` environment variable exist.
 
-7. In your env.py file, add a new environment variable with the key set to DATABASE_URL, and the value to your ElephantSQL database URL:
+7. In your env.py file, add a new environment variable with the key set to `DATABASE_URL`, and the value to your ElephantSQL database URL:
 ```
 os.environ['DATABASE_URL'] = "<your PostgreSQL URL here>"
 ```  
@@ -437,18 +479,24 @@ else:
 ```
 
 10. In the terminal, -–dry-run your makemigrations to confirm you are connected to the external database:  
-`python3 manage.py makemigrations --dry-run`  
+```
+python3 manage.py makemigrations --dry-run
+```  
 If you are, you should see the ‘connected’ message printed to the terminal.
 
 11. Remove the print statement.
 
 12. Migrate your database models to your new database:
-`python3 manage.py migrate`\
+```
+python3 manage.py migrate
+```
 
 13. Create a superuser for your new database:
-`python3 manage.py createsuperuser`
+```
+python3 manage.py createsuperuser
+```
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Confirm the migration
 
@@ -458,15 +506,19 @@ If you are, you should see the ‘connected’ message printed to the terminal.
 
 3. When you click “Execute”, you should see your newly created superuser details displayed. This confirms your tables have been created and you can add data to your database.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Prepare Project for deployment to Heroku
 
 1. In the terminal of your IDE workspace, install gunicorn
-`pip3 install gunicorn django-cors-headers`
+```
+pip3 install gunicorn django-cors-headers
+```
 
 2. Update your requirements.txt
-`pip freeze --local > requirements.txt`
+```
+pip freeze --local > requirements.txt
+```
 
 3. Heroku also requires a `Procfile`. Create this file now. Remember, it must be named correctly and not have any file extension, otherwise Heroku won’t recognise it
 
@@ -477,12 +529,12 @@ web: gunicorn drf_highlights.wsgi
 ```  
 Save the file.
 
-5. In your settings.py file, update the value of the ALLOWED_HOSTS variable to include your Heroku app’s URL
+5. In your settings.py file, update the value of the `ALLOWED_HOSTS` variable to include your Heroku app’s URL
 ```
 ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']
 ```
 
-6. Add corsheaders to INSTALLED_APPS:
+6. Add corsheaders to `INSTALLED_APPS`:
 ```
 INSTALLED_APPS = [
     ...
@@ -492,7 +544,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-7. Add corsheaders middleware to the TOP of the MIDDLEWARE:
+7. Add corsheaders middleware to the TOP of the `MIDDLEWARE`:
 ```
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -500,7 +552,7 @@ MIDDLEWARE = [
 ]
 ```
 
-8. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network requests made to the server with the following code:
+8. Under the `MIDDLEWARE` list, set the `ALLOWED_ORIGINS` for the network requests made to the server with the following code:
 ```
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
@@ -511,7 +563,7 @@ else:
         r"^https://.*\.gitpod\.io$",
     ]
 ```  
-Here the allowed origins are set for the network requests made to the server. The API will use the CLIENT_ORIGIN variable, which is the front end app's url. We haven't deployed that project yet, but that's ok. If the variable is not present, that means the project is still in development, so then the regular expression in the else statement will allow requests that are coming from your IDE.
+Here the allowed origins are set for the network requests made to the server. The API will use the `CLIENT_ORIGIN` variable, which is the front end app's url. We haven't deployed that project yet, but that's ok. If the variable is not present, that means the project is still in development, so then the regular expression in the else statement will allow requests that are coming from your IDE.
 
 9. Enable sending cookies in cross-origin requests so that users can get authentication functionality
 ```
@@ -523,30 +575,30 @@ else:
 CORS_ALLOW_CREDENTIALS = True
 ```
 
-10. To be able to have the front end app and the API deployed to different platforms, set the JWT_AUTH_SAMESITE attribute to 'None'. Without this the cookies would be blocked.
+10. To be able to have the front end app and the API deployed to different platforms, set the `JWT_AUTH_SAMESITE` attribute to `'None'`. Without this the cookies would be blocked.
 ```
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 ```
 
-11. Remove the value for SECRET_KEY and replace with the following code to use an environment variable instead.
+11. Remove the value for `SECRET_KEY` and replace with the following code to use an environment variable instead.
 ```
 SECRET_KEY = os.getenv('SECRET_KEY')
 ```
 
-12. Set a NEW value for your SECRET_KEY environment variable in env.py, do NOT use the same one that has been published to GitHub in your commits  
+12. Set a NEW value for your `SECRET_KEY` environment variable in env.py, do NOT use the same one that has been published to GitHub in your commits  
 [Django Secret Key Generator](https://djecrety.ir/)  
 ```
 os.environ.setdefault("SECRET_KEY", "CreateANEWRandomValueHere")
 ```
 
-13. Set the DEBUG value to be True only if the DEV environment variable exists. This will mean it is True in development, and False in production.
+13. Set the `DEBUG` value to be `True` only if the `DEV` environment variable exists. This will mean it is True in development, and False in production.
 ```
 DEBUG = 'DEV' in os.environ
 ```
 
-14. Comment DEV back in env.py
+14. Comment `DEV` back in env.py
 ```
 import os
 
@@ -557,41 +609,47 @@ os.environ['DATABASE_URL'] = "postgres://..."
 ```
 
 15. Ensure the project requirements.txt file is up to date. In the IDE terminal of your DRF API project enter the following:
-`pip freeze --local > requirements.txt`
+```
+pip freeze --local > requirements.txt
+```
 
 16. Add, commit and push your code to GitHub
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Deploying to Heroku
 
 1. Back on the Heroku dashboard for your new app, open the Settings tab.
 
 2. Add two more Config Vars:
-    - SECRET_KEY (you can make one up, but don’t use the one that was originally in the settings.py file!)
-    - CLOUDINARY_URL, and for the value, copy in your Cloudinary URL from your env.py file (do not add quotation marks!)
-    - You should already have DATABASE_URL (postgress) and DISABLE_COLLECTSTATIC (set to 1)
+    - `SECRET_KEY` (you can make one up, but don’t use the one that was originally in the settings.py file!)
+    - `CLOUDINARY_URL`, and for the value, copy in your Cloudinary URL from your `env.py` file (do not add quotation marks!)
+    - You should already have `DATABASE_URL` (postgress) and `DISABLE_COLLECTSTATIC` (set to 1)
 
-3. Open the Deploy tab.
+3. Open the `Deploy tab`.
 
-4. In the Deployment method section, select Connect to GitHub.
+4. In the Deployment method section, select `Connect to GitHub`.
 
-5. Search for your repo and click Connect
+5. Search for your repo and click `Connect`.
 
-6. Optional: You can click Enable Automatic Deploys in case you make any further changes to the project. This will trigger any time code is pushed to your GitHub repository
+6. Optional: You can click `Enable Automatic Deploys` in case you make any further changes to the project. This will trigger any time code is pushed to your GitHub repository
 
 7. Under Manual deploy click `Deploy Branch`
 
 8. Your app should be successfully deployed to Heorku. If there was an error and you need to view your logs log in to heroku with the following command:  
-`heroku login`  
+```
+heroku login
+```  
 Then to view the logs:  
-`heroku logs --tail --app drf-highlights`
+```
+heroku logs --tail --app drf-highlights
+```
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Fix the dj-rest-auth issue with logging out
 
-1. In drf_highlights/views.py, import JWT_AUTH settings from settings.py.
+1. In drf_highlights/views.py, import `JWT_AUTH` settings from settings.py.
 ```
 from .settings.responses import (
     JWT_AUTH_COOKIE,
@@ -601,7 +659,7 @@ from .settings.responses import (
 )
 ```
 
-2. Write a logout view. That sets the value of both the access token (JWT_AUTH_COOKIE) and refresh token (JWT_AUTH_REFRESH_COOKIE) to empty strings. We also pass samesite=JWT_AUTH_SAMESITE, which we set to ’None’ in settings.py and make sure the cookies are httponly and sent over HTTPS
+2. Write a logout view. That sets the value of both the access token (`JWT_AUTH_COOKIE`) and refresh token (`JWT_AUTH_REFRESH_COOKIE`) to empty strings. We also pass `samesite=JWT_AUTH_SAMESITE`, which we set to `’None’` in settings.py and make sure the cookies are `httponly` and sent over `HTTPS`
 ```
 # dj-rest-auth logout view fix
 @api_view(['POST'])
@@ -634,7 +692,7 @@ Inside drf_highlights/urls.py add the following import:
 from .views import route_route, logout_route
 ```
 
-4. ... and then included in the urlpatterns list. The important thing to note here is that our logout_route has to be placed above the default dj-rest-auth urls, so that it is matched first.
+4. ... and then included in the `urlpatterns` list. The important thing to note here is that our logout_route has to be placed above the default `dj-rest-auth` urls, so that it is matched first.
 ```
 urlpatterns = [
     ...
@@ -649,16 +707,16 @@ urlpatterns = [
 
 6. Redeploy to Heroku.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
 
 ### Add ALLOWED_HOSTS and CLIENT_ORIGIN_DEV to settings.py
 
-1. In settings.py, in the ALLOWED_HOSTS list, copy your ‘... .herokuapp.com’ string.
+1. In settings.py, in the `ALLOWED_HOSTS` list, copy your ‘... .herokuapp.com’ string.
 2. Log in to heroku.com and select your API application.
-3. Click “settings”
-4. Click “Reveal config vars”
-5. Add the new key of ALLOWED_HOST with the value for your deployed Heroku application URL that we copied from settings.py
-6. Back in settings.py, replace your ALLOWED HOSTS list '... .herokuapp.com' string we just copied with the ALLOWED_HOST environment variable.
+3. Click `settings`
+4. Click `Reveal config vars`
+5. Add the new key of `ALLOWED_HOST` with the value for your deployed Heroku application URL that we copied from settings.py
+6. Back in settings.py, replace your `ALLOWED HOSTS` list '... .herokuapp.com' string we just copied with the `ALLOWED_HOST` environment variable.
 ```
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
@@ -669,10 +727,10 @@ ALLOWED_HOSTS = [
 In order to make our application more secure and accommodate the way Gitpod works by changing the workspace URL regularly, the below code has been provided for you to add to your project.
 
 The following code works as follows:
-a) When the CLIENT_ORIGIN_DEV environment variable is defined, the unique part of your gitpod preview URL is extracted.
+a) When the `CLIENT_ORIGIN_DEV` environment variable is defined, the unique part of your gitpod preview URL is extracted.
 b) It is then included in the regular expression provided by us so that the gitpod workspace is still connected to our API when gitpod rotates the workspace URL.
 
-1. Import the regular expression module at the top of your settings.py file. We will need this to manipulate the CLIENT_ORIGIN_DEV URL string.
+1. Import the regular expression module at the top of your settings.py file. We will need this to manipulate the `CLIENT_ORIGIN_DEV` URL string.
 ```
 import re
 ```
@@ -688,4 +746,4 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 3. Add, commit and push your changes.
 
-[Back to top](#table-of-contents)
+[Back to top](#highlights---api)
